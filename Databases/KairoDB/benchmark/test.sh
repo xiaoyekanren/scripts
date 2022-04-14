@@ -38,16 +38,13 @@ alter_static_paras() {
     done
 }
 
-# kairosDB mush clear data by hand, kairosdb's host mush add ssh-keygen
-clear_db() {
-    ssh zzm@192.168.130.37 "/bin/bash /home/zzm/data/kairosdb/stop-clear-start.sh"
-}
-
 init_config() {
     cp $BENCHMARK_CONF_FILE $LOG_DIRECTORY/${para}.properties
     cp $BENCHMARK_CONF_FILE_BAK $BENCHMARK_CONF_FILE
-    ssh root@192.168.130.37 "/bin/bash /home/zzm/data/kairosdb/stop-clear-start.sh"
+    # kairosDB mush clear data by hand, kairosdb's host mush add ssh-keygen
+    ssh zzm@192.168.130.37 "/bin/bash /home/zzm/data/kairosdb/stop-clear-start.sh"
 }
+
 # 自动生成的参数
 BENCHMARK_CONF=$BENCHMARK_HOME/conf
 BENCHMARK_CONF_FILE=$BENCHMARK_HOME/conf/config.properties
