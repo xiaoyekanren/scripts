@@ -57,7 +57,7 @@ cp $BENCHMARK_CONF_FILE $BENCHMARK_CONF_FILE_BAK
 mkdir -p $LOG_DIRECTORY
 # 主程序
 for para in ${DYNAMIC_PARA_VALUES[@]}; do
-    echo "test $para, start..."
+    echo "$(date +"%Y-%m-%d %H:%M:%S")  test $para, start..."
     # 修改固定参数
     alter_static_paras
     # 修改变化参数
@@ -67,4 +67,3 @@ for para in ${DYNAMIC_PARA_VALUES[@]}; do
     # 恢复原始配置
     init_config
 done
-
