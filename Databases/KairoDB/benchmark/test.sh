@@ -55,18 +55,23 @@ LOG_DIRECTORY=$BENCHMARK_HOME/work_log/$DB-$DYNAMIC_PARA-$(date +%Y%m%d)
 
 # 准备工作
 # 1 备份配置文件
+echo "backup config file..."
 cp $BENCHMARK_CONF_FILE $BENCHMARK_CONF_FILE_BAK
 # 2 创建log文件夹
 mkdir -p $LOG_DIRECTORY
 # 主程序
 for para in ${DYNAMIC_PARA_VALUES[@]}; do
-    echo "$(date +"%Y-%m-%d %H:%M:%S")  test $para, start..."
+    echo "----------$(date +"%Y-%m-%d %H:%M:%S")  test $para, start...----------"
     # 修改固定参数
+    echo "1. change paras"
     alter_static_paras
     # 修改变化参数
+    echo "2. change loop para"
     sed -i -e "s/^${DYNAMIC_PARA}=.*/${DYNAMIC_PARA}=$para/g" $BENCHMARK_CONF_FILE
     # 启动程序
+    echo "3. start benchmark..."
     $BENCHMARK_EXEC_FILE >$LOG_DIRECTORY/${para}.out
     # 恢复原始配置
+    echo "4. init config, clear data"
     init_config
 done
