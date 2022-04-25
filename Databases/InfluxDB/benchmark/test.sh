@@ -34,6 +34,7 @@ static_paras=(
 
 alter_static_paras() {
     for alone in ${!static_paras[@]}; do
+        echo 'change ${alone} to ${static_paras[$alone]}'
         sed -i -e "s/^${alone}=.*/${alone}=${static_paras[$alone]}/g" $BENCHMARK_CONF_FILE
     done
 }
