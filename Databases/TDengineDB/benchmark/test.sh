@@ -5,7 +5,7 @@
 
 # 需要确定的参数
 BENCHMARK_HOME=/home/zzm/tdengine
-DB=TDengine
+DB=TDengine  # 仅作为log记录
 # 要变换的配置项，只能一个
 DYNAMIC_PARA="GROUP_NUMBER"
 DYNAMIC_PARA_VALUES=(1 5 10 15 20 50 100)
@@ -68,6 +68,7 @@ for para in ${DYNAMIC_PARA_VALUES[@]}; do
     alter_static_paras
     # 修改变化参数
     echo "2. change loop para"
+    echo "change ${DYNAMIC_PARA} to $para"
     sed -i -e "s/^${DYNAMIC_PARA}=.*/${DYNAMIC_PARA}=$para/g" $BENCHMARK_CONF_FILE
     # 启动程序
     echo "3. start benchmark..."
