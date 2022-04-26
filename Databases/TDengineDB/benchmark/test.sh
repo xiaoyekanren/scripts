@@ -4,16 +4,16 @@
 # 需要在 taosd 所在服务器放置 stop-clear-start.sh脚本，两者配合使用
 
 # 需要确定的参数
-BENCHMARK_HOME=/home/zzm/tdengine
+BENCHMARK_HOME=/home/zzm/benchmark-tdengine-zhy-9e92fc1f
 DB=TDengine  # 仅作为log记录
 # 要变换的配置项，只能一个
-DYNAMIC_PARA="GROUP_NUMBER"
-DYNAMIC_PARA_VALUES=(1 5 10 15 20 50 100)
+DYNAMIC_PARA="BATCH_SIZE_PER_WRITE"
+DYNAMIC_PARA_VALUES=(1 10 50 100 200 400 600 800 1000 1200 1400 1600 1800 2000 2200 2400 2600 2800 3000)
 # 声明用于参数修改的字典
 declare -A static_paras # 必须声明
 static_paras=(
     [DB_SWITCH]="TDengine"
-    [HOST]="192.168.130.37"
+    [HOST]="192.168.130.15"
     [PORT]="6030"
     [USERNAME]="root"
     [PASSWORD]="taosdata"
@@ -21,7 +21,8 @@ static_paras=(
     [TEST_MAX_TIME]="3600000"
     [LOOP]="999999999"
     [IS_DELETE_DATA]="true"
-    [CLIENT_NUMBER]="100"
+    [CLIENT_NUMBER]="10"
+    [GROUP_NUMBER]="10"
     [DEVICE_NUMBER]="10000"
     [SENSOR_NUMBER]="100"
     [BATCH_SIZE]="100"
@@ -45,7 +46,7 @@ alter_static_paras() {
 init_config() {
     cp $BENCHMARK_CONF_FILE $LOG_DIRECTORY/${para}.properties
     cp $BENCHMARK_CONF_FILE_BAK $BENCHMARK_CONF_FILE
-    ssh root@192.168.130.37 "/bin/bash /home/zzm/data/clear-taos.sh"
+    ssh root@192.168.130.15 "/bin/bash /home/zzm/data/taos/clear-taos.sh"
 }
 # 自动生成的参数
 BENCHMARK_CONF=$BENCHMARK_HOME/conf
@@ -73,6 +74,10 @@ for para in ${DYNAMIC_PARA_VALUES[@]}; do
     # 启动程序
     echo "3. start benchmark..."
     $BENCHMARK_EXEC_FILE >$LOG_DIRECTORY/${para}.out
+    # 查看数据文件大小
+    echo sum data
+    ssh root@192.168.130.15  'du -sh /home/zzm/data/taos/taos_data'
+    ssh root@192.168.130.15  'du -sh /home/zzm/data/taos/taos_data/*'
     # 恢复原始配置
     echo "4. init config, clear data"
     init_config
