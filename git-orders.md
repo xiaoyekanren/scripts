@@ -11,3 +11,8 @@ git clone https://github.com/xiaoyekanren/scripts.git [path]
 ```
 git clone -b master https://github.com/xiaoyekanren/scripts.git
 ```
+4. tag
+```
+git tag -d [tag_name]  # 删除本地tag
+git push origin :refs/tags/[tag_name]  # 删除remote的tag
+```
