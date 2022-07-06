@@ -21,6 +21,7 @@ sed -i "s:^max_connections.*:max_connections = 1000:g" $PG_DATA/postgresql.conf
 sed -i "s/^#listen_addresses =.*/listen_addresses = '*'/g" $PG_DATA/postgresql.conf
 
 # # use timescaledb-tune to auto set.
+# # 以下脚本适用于fit楼 16核32G PC机，若有配置变更，建议安装timescale-tune来进行配置
 # timescaledb-tune -conf-path=/home/zzm/data/timescaledb/pg_data/postgresql.conf -pg-config=/home/zzm/data/timescaledb/pgsql/bin/pg_config
 # shared_preload_libraries
 sed -i "s/^#shared_preload_libraries.*/shared_preload_libraries = 'timescaledb'/g" $PG_DATA/postgresql.conf
