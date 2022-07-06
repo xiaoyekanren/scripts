@@ -16,5 +16,6 @@ sleep 3
 rm -rf $INFLUXDB_DATA
 
 # start-iotdb
+cd $INFLUXDB_HOME
 nohup $INFLUXDB_BIN/influxd -config $INFLUXDB_CONF_FILE >nohup.out 2>&1 &
 sleep 2
