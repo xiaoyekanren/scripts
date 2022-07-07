@@ -10,7 +10,7 @@ DB=IoTDB  # 仅作为log记录
 DYNAMIC_PARA="BATCH_SIZE_PER_WRITE"
 DYNAMIC_PARA_VALUES=(1000)
 # 声明用于参数修改的字典
-declare -A static_paras # 必须声明
+declare -A static_paras # 必须声明，声明之后必须使用bash执行
 static_paras=(
     [DB_SWITCH]="IoTDB-012-SESSION_BY_TABLET"
     [HOST]="192.168.130.37"

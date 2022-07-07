@@ -10,7 +10,7 @@ DB=TDengine  # 仅作为log记录
 DYNAMIC_PARA="BATCH_SIZE_PER_WRITE"
 DYNAMIC_PARA_VALUES=(1 10 50 100 200 400 600 800 1000 1200 1400 1600 1800 2000 2200 2400 2600 2800 3000)
 # 声明用于参数修改的字典
-declare -A static_paras # 必须声明
+declare -A static_paras # 必须声明，声明之后必须使用bash执行
 static_paras=(
     [DB_SWITCH]="TDengine"
     [HOST]="192.168.130.15"
