@@ -3,6 +3,10 @@
 # IoTDB 停止-清理-启动脚本
 
 IOTDB_HOME=/home/zzm/data/apache-iotdb-0.12.5-server-bin
+export JAVA_HOME=/usr/local/jdk1.8.0_311
+export PATH=$JAVA_HOME/bin:$PATH
+
+# auto generate
 IOTDB_BIN=$IOTDB_HOME/sbin
 IOTDB_DATA=$IOTDB_HOME/data
 
